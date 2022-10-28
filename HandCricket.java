@@ -1,14 +1,14 @@
 import java.util.*;
- public class HandCricket
+public class HandCricket
 {
-    int numRandom()
+    static int numRandom()
     {
         double randBot=Math.random();
-        int run;     
+        int run;
 
         if(randBot>0 && randBot<=0.16667)
             run=1;
-        else if(randBot>1.6667 && randBot<=0.3333)
+        else if(randBot>0.16667 && randBot<=0.3333)
             run=2;
         else if(randBot>0.3333 && randBot<=0.5)
             run=3;
@@ -18,44 +18,48 @@ import java.util.*;
             run=5;
         else
             run=6;
-        
-        
+
+
         return run;
     }
-    
-    int numUser(Scanner sc)
+
+    static int numUser(Scanner sc)
     {
         System.out.print("Enter a number between 1-6: ");
         int num = sc.nextInt();
 
-        System.out.println();
-        
+
         while(num > 6 || num < 1)
         {
-            System.out.print("Enter a number between 1-6: ");
+            System.out.print("Invalid number entered... Enter a number between 1-6: ");
             num = sc.nextInt();
         }
         System.out.println();
         return num;
-    
+
     }
-           
-            
-            
+
+
+
     public static void main(String[] args)
     {
 
         Scanner sc = new Scanner(System.in);
-        
-        System.out.println("Press 1 for batting");
-        System.out.println("Press 2 for bowling");
+
+        System.out.println("Enter your choice:");
+        System.out.println("1)Batting");
+        System.out.println("2)Balling");
 
         int choice = sc.nextInt();
-        int countUser = 0,countBot = 0      
-        
-        while(choice != 1 || choice != 2)
+        int countUser = 0,countBot = 0;
+
+        while(choice != 1 && choice != 2)
         {
             System.out.println("INVALID INPUT");
+
+            System.out.println("Press 1 for batting");
+            System.out.println("Press 2 for bowling");
+
             choice = sc.nextInt();
         }
 
@@ -64,42 +68,50 @@ import java.util.*;
             case 1:
             {
                 int userRun = numUser(sc);
-
-                while(userRun != numRandom())
+                int botRun = numRandom();
+                while(userRun != botRun)
                 {
-                    countUser=countUser+userRun;
-                    System.out.println("Your score is : "+count);
+                    countUser = countUser + userRun;
+
+                    System.out.println("Bot chose: " + botRun);
+
+                    System.out.println("Your score is : " + countUser);
 
                     userRun = numUser(sc);
+                    botRun = numRandom();
                 }
 
                 System.out.println("Player OUT! Your score is : " + countUser +" Bot's turn...");
                 System.out.println("----------------------------------");
 
-                int botRun = numRandom()
+                botRun = numRandom();
+                boolean out = false;
                 while(numUser(sc) != botRun)
                 {
+                    if(out == false)
+                        out = true;
                     System.out.println("Bot chose :" + botRun);
                     countBot = countBot + botRun;
                     System.out.println("Bot's score is :" + countBot);
 
-                    if(countBot>countUser)
+                    if(countBot > countUser)
                     {
-                    //   ch=1;        
-                      break;
+                        //   ch=1;
+                        break;
                     }
                     botRun = numRandom();
                 }
-                
-                System.out.println("Bot OUT! Bot's score is :"+countBot+"\n RESULTS ARE BELOW");
+                if(!out)
+                    System.out.println("Bot chose: " + botRun);
+
+                System.out.println("Bot OUT! Bot's score is :" + countBot + "\n RESULTS ARE BELOW");
                 break;
-              }
-            
+            }
+
             case 2:
             {
-
                 int botRun = numRandom();
-                
+
                 while(numUser(sc) != botRun)
                 {
                     System.out.println("Bot chose :" + botRun);
@@ -114,32 +126,43 @@ import java.util.*;
                 System.out.println("------------------------");
 
                 int userRun = numUser(sc);
-                while(userRun != numRandom())
+                botRun = numRandom();
+                
+                boolean out = false;
+                while(userRun != botRun)
                 {
-                    countUser=countUser + userRun;
-                    System.out.println("Player's score is : " + countUser);
+                    if(out == false)
+                        out = true;
+                    countUser = countUser + userRun;
+
+                    System.out.println("Bot chose: " + botRun);
+                    System.out.println("Player's score is: " + countUser);
+
                     if(countBot < countUser)
                     {
                         //ch=1;
                         break;
                     }
+                    botRun = numRandom();
                 }
+                if(!out)
+                    System.out.println("Bot chose: " + botRun);
                 // if(ch==1)
                 // System.out.println("Score reached \n RESULTS ARE BELOW");
-                System.out.println("Player OUT!Your score is :" + countUser + "\n RESULTS ARE BELOW");
+                System.out.println("Player OUT! Your score is :" + countUser + "\n RESULTS ARE BELOW");
                 break;
-            }
-            
+            } 
+
             default:
                 System.out.println("INVALID INPUT");
         }
 
-        System.out.println("User's score:\t Bot's score:");
-        System.out.println(countUser+"\t \t" + countBot);
+        System.out.println("Player's score:\t Bot's score:");
+        System.out.println(countUser+"\t \t \t \t" + countBot);
 
         if(countUser > countBot)
         {
-            System.out.println("User won by "+(countUser-countBot)+" runs");
+            System.out.println("Player won by "+(countUser-countBot)+" runs");
         }
         else if(countUser == countBot)
         {
@@ -151,11 +174,6 @@ import java.util.*;
         }
 
         System.out.println("-------------------------------");
-        
+
     }
 }
-                    
-       
-        
-        
-        
