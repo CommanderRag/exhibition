@@ -92,8 +92,9 @@ import java.util.*;
                 }
                 
                 System.out.println("Bot OUT! Bot's score is :"+countBot+"\n RESULTS ARE BELOW");
+                break;
               }
-            break;
+            
             case 2:
             {
 
@@ -126,7 +127,7 @@ import java.util.*;
                 // if(ch==1)
                 // System.out.println("Score reached \n RESULTS ARE BELOW");
                 System.out.println("Player OUT!Your score is :" + countUser + "\n RESULTS ARE BELOW");
-            
+                break;
             }
             
             default:
