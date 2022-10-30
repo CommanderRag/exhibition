@@ -15,7 +15,7 @@ public class Connect4 {
         }
 
         int turn = 1;
-        char player = 'R';
+        char player = 'Y';
         boolean winner = false;
 
         //play a turn
@@ -45,10 +45,10 @@ public class Connect4 {
             winner = isWinner(player,grid);
 
             //switch players
-            if (player == 'R'){
+            if (player == 'Y'){
                 player = 'B';
             }else{
-                player = 'R';
+                player = 'Y';
             }
 
             turn++;
@@ -56,20 +56,20 @@ public class Connect4 {
         display(grid);
 
         if (winner){
-            if (player=='R'){
-                System.out.println("Black won");
+            if (player=='Y'){
+                System.out.println("Black won!!");
             }else{
-                System.out.println("Red won");
+                System.out.println("Yellow won!!");
             }
         }else{
-            System.out.println("Tie game");
+            System.out.println("Tie game!!");
         }
 
     }
 
     public static void display(char[][] grid){
         System.out.println(" 0 1 2 3 4 5 6");
-        System.out.println("---------------");
+      
         for (int row = 0; row < grid.length; row++){
             System.out.print("|");
             for (int col = 0; col < grid[0].length; col++){
@@ -77,7 +77,7 @@ public class Connect4 {
                 System.out.print("|");
             }
             System.out.println();
-            System.out.println("---------------");
+            
         }
         System.out.println(" 0 1 2 3 4 5 6");
         System.out.println();
@@ -89,6 +89,11 @@ public class Connect4 {
             return false;
         }
 
+        if(column < 0 || column > 6)
+        {
+            System.out.println("INVALID Number ");
+            return false;
+        }   
         //full column?
         if (grid[0][column] != ' '){
             return false;

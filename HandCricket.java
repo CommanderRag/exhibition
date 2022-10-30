@@ -1,6 +1,7 @@
 import java.util.*;
 public class HandCricket
 {
+    
     static int numRandom()
     {
         double randBot=Math.random();
@@ -25,7 +26,7 @@ public class HandCricket
 
     static int numUser(Scanner sc)
     {
-        System.out.print("Enter a number between 1-6: ");
+        System.out.print("\nEnter a number between 1-6: ");
         int num = sc.nextInt();
 
 
@@ -34,7 +35,7 @@ public class HandCricket
             System.out.print("Invalid number entered... Enter a number between 1-6: ");
             num = sc.nextInt();
         }
-        System.out.println();
+        
         return num;
 
     }
@@ -48,7 +49,7 @@ public class HandCricket
 
         System.out.println("Enter your choice:");
         System.out.println("1)Batting");
-        System.out.println("2)Balling");
+        System.out.println("2)Bowling");
 
         int choice = sc.nextInt();
         int countUser = 0,countBot = 0;
@@ -86,6 +87,8 @@ public class HandCricket
 
                 botRun = numRandom();
                 boolean out = false;
+                boolean won = false;
+                
                 while(numUser(sc) != botRun)
                 {
                     if(out == false)
@@ -93,18 +96,23 @@ public class HandCricket
                     System.out.println("Bot chose :" + botRun);
                     countBot = countBot + botRun;
                     System.out.println("Bot's score is :" + countBot);
-
+                    System.out.println("-------------------");
+                    
                     if(countBot > countUser)
                     {
                         //   ch=1;
+                        won = true;
                         break;
                     }
                     botRun = numRandom();
                 }
+                
+                if(!won){
+                    System.out.println("Bot OUT! Bot's total score is: " + countBot + "\n RESULTS ARE BELOW");
+                    break;
+                }
                 if(!out)
-                    System.out.println("Bot chose: " + botRun);
-
-                System.out.println("Bot OUT! Bot's score is :" + countBot + "\n RESULTS ARE BELOW");
+                        System.out.println("Bot chose: " + botRun);               
                 break;
             }
 
@@ -117,17 +125,18 @@ public class HandCricket
                     System.out.println("Bot chose :" + botRun);
                     countBot=countBot + botRun;
                     System.out.println("Bot's score is :" + countBot);
-
+                    System.out.println("-------------------");
+                    
                     botRun = numRandom();
                 }
 
                 // System.out.println("Bot chose :"+temp1);
-                System.out.println("Bot OUT! Bot's score is :" + countBot + " User's turn...");
+                System.out.println("Bot OUT! Bot's total score is: " + countBot + " User's turn...");
                 System.out.println("------------------------");
 
                 int userRun = numUser(sc);
                 botRun = numRandom();
-                
+                boolean won = false;
                 boolean out = false;
                 while(userRun != botRun)
                 {
@@ -141,15 +150,20 @@ public class HandCricket
                     if(countBot < countUser)
                     {
                         //ch=1;
+                        won = true;
                         break;
                     }
                     botRun = numRandom();
+                    userRun = numUser(sc);
                 }
-                if(!out)
-                    System.out.println("Bot chose: " + botRun);
-                // if(ch==1)
-                // System.out.println("Score reached \n RESULTS ARE BELOW");
-                System.out.println("Player OUT! Your score is :" + countUser + "\n RESULTS ARE BELOW");
+                if(!won)
+                {
+                    if(!out)
+                        System.out.println("Bot chose: " + botRun);
+                    // if(ch==1)
+                    // System.out.println("Score reached \n RESULTS ARE BELOW");
+                    System.out.println("Player OUT! Your score is :" + countUser + "\nRESULTS ARE BELOW");
+                }
                 break;
             } 
 
@@ -158,7 +172,7 @@ public class HandCricket
         }
 
         System.out.println("Player's score:\t Bot's score:");
-        System.out.println(countUser+"\t \t \t \t" + countBot);
+        System.out.println(countUser+"\t \t " + countBot);
 
         if(countUser > countBot)
         {
